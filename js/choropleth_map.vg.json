@@ -1,0 +1,237 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": {
+      "signal": "if(select_category === 'Total Deaths', 'Total Deaths per 10,000 Population in ' + select_year, replace(select_category) + ' Deaths per 10,000 Population in ' + select_year)"
+  },
+    "fontSize": 18
+  },
+
+  "width": 870,
+  "height": 400,
+  "projection": { "type": "naturalEarth1" },
+  "data": {
+    "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179/main/js/ne_110m.topojson",
+    "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
+  },
+  "params": [
+    {
+      "name": "select_year",
+      "value": 1990,
+      "bind": { "input": "range", "min": 1990, "max": 2019, "step": 1, "name": "Select Year: " }
+    },
+    {
+      "name": "select_category",
+      "value": "Total Deaths",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Total Deaths",
+          "Meningitis",
+          "Alzheimer's Disease and Other Dementias",
+          "Parkinson's Disease",
+          "Nutritional Deficiencies",
+          "Malaria",
+          "Drowning",
+          "Interpersonal Violence",
+          "Maternal Disorders",
+          "HIV/AIDS",
+          "Drug Use Disorders",
+          "Tuberculosis",
+          "Cardiovascular Diseases",
+          "Lower Respiratory Infections",
+          "Neonatal Disorders",
+          "Alcohol Use Disorders",
+          "Self-harm",
+          "Exposure to Forces of Nature",
+          "Diarrheal Diseases",
+          "Environmental Heat and Cold Exposure",
+          "Neoplasms",
+          "Conflict and Terrorism",
+          "Diabetes Mellitus",
+          "Chronic Kidney Disease",
+          "Poisonings",
+          "Protein-Energy Malnutrition",
+          "Road Injuries",
+          "Chronic Respiratory Diseases",
+          "Cirrhosis and Other Chronic Liver Diseases",
+          "Digestive Diseases",
+          "Fire, Heat, and Hot Substances",
+          "Acute Hepatitis"
+
+      ],
+      "labels":[
+        "Total Deaths",
+        "Meningitis",
+        "Alzheimer's Disease and Other Dementias",
+        "Parkinson's Disease",
+        "Nutritional Deficiencies",
+        "Malaria",
+        "Drowning",
+        "Interpersonal Violence",
+        "Maternal Disorders",
+        "HIV/AIDS",
+        "Drug Use Disorders",
+        "Tuberculosis",
+        "Cardiovascular Diseases",
+        "Lower Respiratory Infections",
+        "Neonatal Disorders",
+        "Alcohol Use Disorders",
+        "Self-harm",
+        "Exposure to Forces of Nature",
+        "Diarrheal Diseases",
+        "Environmental Heat and Cold Exposure",
+        "Neoplasms",
+        "Conflict and Terrorism",
+        "Diabetes Mellitus",
+        "Chronic Kidney Disease",
+        "Poisonings",
+        "Protein-Energy Malnutrition",
+        "Road Injuries",
+        "Chronic Respiratory Diseases",
+        "Cirrhosis and Other Chronic Liver Diseases",
+        "Digestive Diseases",
+        "Fire, Heat, and Hot Substances",
+        "Acute Hepatitis"
+      ],
+        "name": "Select Category: "
+      }
+    },
+    {
+      "name": "zoom_level",
+      "value": 156,
+      "bind": {
+      "input": "range",
+      "min": 156,
+      "max": 1000,
+      "step": 1,
+      "name": "Zoom: "
+      }
+    }
+    
+  ],
+  "projection": {
+    "type": "equalEarth",
+    "scale": {"expr": "zoom_level"}
+    },
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": { "type": "geoshape", "fill": "lightgray", "stroke": "white" },
+      "encoding": { "tooltip": { "field": "note" } }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179_Week10HW/main/data/cause_of_deaths_with_population.csv"
+      },
+      "transform": [
+        {
+          "lookup": "Code",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179/main/js/ne_110m.topojson",
+              "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
+            },
+            "key": "properties.ISO_A3_EH"
+          },
+          "as": "geo"
+        },
+        { "filter": "datum.Year == select_year" },
+        {"filter": "datum[select_category] > 0"},
+        {"filter": "datum['Population'] > 0"},
+        {
+          "calculate": "datum[select_category] / datum['Population'] * 10000",
+          "as": "num_patient_per_10k"
+        }
+      ],
+      "params": [
+        {
+          "name": "highlight",
+          "select": {"type": "point", "on": "mouseover"}
+        },
+        {"name": "select", "select": "point"}
+      ],
+      "mark": { "type": "geoshape", "stroke": "white" },
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "num_patient_per_10k",
+          "type": "quantitative",
+          "scale": {
+            "type": "log"
+          },
+          "legend": {
+            "title": "Number of Deaths (per 10,000 population)",
+            "titleLimit": 300
+        }
+        },
+        "tooltip": [
+          { "field": "Country/Territory", "type": "nominal", "title": "Country" },
+          {
+            "field": "num_patient_per_10k",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Number of Deaths (per 10,000 population)"
+          }
+        ],
+        "fillOpacity": {
+          "condition": [
+            {
+              "param": "select",
+              "value": 1
+            }
+          ],
+          "value": 0.3
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+        "format": { "type": "topojson", "feature": "oceans" }
+      },
+      "mark": { "type": "geoshape", "fill": "skyblue" }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179/main/js/ne_110m.topojson",
+        "format": { "type": "topojson", "feature": "ne_110m_graticules_30" }
+      },
+      "mark": { "type": "geoshape", "fill": null, "stroke": "lightgray" }
+    },
+    {
+      
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/data/countryInfo.csv"
+            },
+            "key": "name",
+            "fields": ["latitude", "longitude"]
+          }
+        }
+      ],
+      "mark": { "type": "text", "color": "black" },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "text": { "field": "properties.NAME", "type": "nominal" },
+        "opacity": {
+          "condition": {
+            "test": "datum['properties.NAME'] == 'China' || datum['properties.NAME'] == 'Brazil' || datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'Malaysia' ||  datum['properties.NAME'] == 'Yemen' ||  datum['properties.NAME'] == 'United States of America' ||  datum['properties.NAME'] == 'Russia' ||  datum['properties.NAME'] == 'Algeria'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {"background": "transparent"}
+}

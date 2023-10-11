@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Top 10 Leading Causes by Total Incidents",
+    "fontSize": 18
+  },
+  "width": 720,
+  "height": 500,
+  "data": {
+    "url": "../data/total_cases_of_diseases.csv"
+  },
+  "layer": [
+    {"params": [
+      {
+        "name": "highlight",
+        "select": {"type": "point", "on": "mouseover"}
+      },
+      {"name": "select", "select": "point"}
+    ],
+      "mark": "bar",
+      "encoding": {
+        "y": {"field": "Cause", "type": "nominal", "sort": {"field": "Total cases", "op": "sum", "order": "descending"}},
+        "x": {"field": "Total cases", "type": "quantitative", "scale": {"domain": [0, 500000000]}},
+        "legend": {
+          "title": "Cause"
+       },
+        "fillOpacity": {
+          "condition": {"param": "select", "value": 1},
+          "value": 0.3
+        },
+        "strokeWidth": {
+          "condition": [
+            {
+              "param": "select",
+              "empty": false,
+              "value": 2
+            },
+            {
+              "param": "highlight",
+              "empty": false,
+              "value": 1
+            }
+          ],
+          "value": 0
+        },
+        "color": {"field": "Cause", "type": "nominal"},
+        
+        "tooltip": [
+          {"field": "Cause", "type": "nominal"},
+          {"field": "Total cases", "type": "quantitative"}
+        ]
+      }
+    },
+    {
+      "selection": {
+        "causes_highlight": {
+        "type": "multi",
+        "fields": ["Cause"],
+        "bind": "legend"
+        }
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 3
+      },
+      "encoding": {
+        "y": {"field": "Cause", "type": "nominal", "sort": {"field": "Total cases", "op": "sum", "order": "descending"}},
+        "x": {"field": "Total cases", "type": "quantitative"},
+        "text": {"field": "Total cases", "type": "quantitative", "format": ".3s"},
+        "opacity": {
+          "condition": {"selection": "causes_highlight", "value": 1},
+          "value": 0.2}
+      }
+    }
+  ],
+  "config": {"background": "transparent"}
+}

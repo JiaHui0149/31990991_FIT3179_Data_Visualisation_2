@@ -1,0 +1,137 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": {
+        "signal": "'Top 5 Causes of Death in ' + countrySelector"
+      },
+      "fontSize": 18
+    },
+    "width": 1110,
+    "height": 400,
+    "config": {
+      "background": "transparent",
+      "view": { "stroke": "transparent" },
+      "arc": {
+        "innerRadius": 180,
+        "padAngle": 0.01,
+        "cornerRadius": 4
+      },
+      "axis": {
+        "labelFontSize": 18
+      }
+    },
+    "data": {
+      "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179_Week10HW/main/data/pivot_total_cases_of_countries.csv"
+    },
+    "params": [
+      {
+        "name": "countrySelector",
+        "value": "Malaysia",
+        "bind": {
+          "input": "select",
+          "options": [
+            "Algeria", "Australia", "Austria", "Brazil", "Canada", "China", "Costa Rica", "Denmark", "France", "Germany", "Greece", "Israel", "Italy", "Japan", "Malaysia", "Mexico", "New Zealand", "Portugal", "Singapore", "Spain", "Sweden", "Thailand", "Turkey", "United Kingdom", "United States"
+          ],
+          "name": "Select Country: "
+        }
+      },
+      {
+        "name": "highlight",
+        "select": {"type": "point", "on": "mouseover"}
+      },
+      {"name": "select", "select": "point"}
+    ],
+   "transform": [
+    {
+      "filter": { "field": "Country/Territory", "equal": { "signal": "countrySelector" } }
+    },
+    {
+      "calculate": "toNumber(datum.Total_Cases)",
+      "as": "Total_Cases"
+    },
+    {
+      "window": [
+        { "op": "rank", "as": "rank" }
+      ],
+      "sort": [
+        { "field": "Total_Cases", "order": "descending" }
+      ]
+    },
+    {
+      "calculate": "datum['Cause']",
+      "as": "Cause"
+    },
+    {
+      "filter": { "field": "rank", "lte": 5 }
+    },
+    {
+      "joinaggregate":[
+        {
+          "op":"sum",
+          "field":"Total_Cases",
+          "as":"Total_Sum"
+        }
+      ],
+      "groupby":[]
+    },
+    {
+      "calculate":"datum.Total_Cases / datum.Total_Sum * 100",
+      "as":"Percentage"
+    }
+  ],
+  "mark": {
+    "type": "arc"
+  },
+  "encoding": {
+    "theta": { "field": "Total_Cases", "type": "quantitative", "stack": true },
+    "color": { "field": "Cause", "type": "nominal",
+    "legend": {
+      "orient": "top-right",
+      "padding": 15,
+      "labelFontSize": 12,
+      "layout": {
+        "anchor": "middle"
+      }
+    }
+  },
+  "fillOpacity": {
+    "condition": {"selection": "causes_highlight", "value": 1},
+    "value": 0.2
+  },
+ 
+    "tooltip": [
+      { "field": "Cause", "type": "nominal", "title": "Cause of Death" },
+      { "field": "Total_Cases", "type": "quantitative", "title": "Total Cases" }
+    ]
+     
+  },
+  
+  "layer": [
+    
+    {
+      "mark": {"type": "arc", "outerRadius": 100}
+    },
+    {
+      "selection": {
+        "causes_highlight": {
+        "type": "multi",
+        "fields": ["Cause"],
+        "bind": "legend"
+        }
+      },
+      "mark": {"type": "text", "radius": 200},
+      "transform": [
+        {
+          "calculate": "  + format(datum.Percentage, '.0f') + '%'",
+          "as": "combined_text"
+        }
+      ],
+      "encoding": {
+        "text": {"field": "combined_text", "type": "nominal"},
+        "opacity": {
+          "condition": {"selection": "causes_highlight", "value": 1},
+          "value": 0.2}
+      }
+    }
+  ]
+}

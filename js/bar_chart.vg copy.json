@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Distribution of Diseases by Total Cases",
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "../data/total_cases_of_diseases.csv"
+  },
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {"field": "Cause", "type": "nominal", "sort": {"field": "Total cases", "op": "sum", "order": "descending"}},
+        "x": {"field": "Total cases", "type": "quantitative", "scale": {"domain": [0, 500000000]}},
+        "legend": {
+          "title": "Cause"
+       },
+        "color": {"field": "Cause", "type": "nominal"},
+        "tooltip": [
+          {"field": "Cause", "type": "nominal"},
+          {"field": "Total cases", "type": "quantitative"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 3
+      },
+      "encoding": {
+        "y": {"field": "Cause", "type": "nominal", "sort": {"field": "Total cases", "op": "sum", "order": "descending"}},
+        "x": {"field": "Total cases", "type": "quantitative"},
+        "text": {"field": "Total cases", "type": "quantitative", "format": ".3s"}
+       
+      }
+    }
+  ]
+}
