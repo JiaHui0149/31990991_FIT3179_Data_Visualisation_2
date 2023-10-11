@@ -35,7 +35,7 @@
     "data": [
       {
         "name": "tree",
-        "url": "../data/causes_categories.csv",
+        "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/data/causes_categories.csv",
         "format": {
             "type": "csv"  
           },
