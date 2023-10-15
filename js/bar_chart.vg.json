@@ -7,7 +7,7 @@
   "width": 720,
   "height": 500,
   "data": {
-    "url": "../data/total_cases_of_diseases.csv"
+    "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/data/total_cases_of_diseases.csv"
   },
   "config": {
     "axis": {

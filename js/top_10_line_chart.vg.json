@@ -7,7 +7,7 @@
   "width": 300,
   "height": 600,
   "data": {
-    "url": "../data/cause_of_deaths_with_population.csv"
+    "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/data/cause_of_deaths_with_population.csv"
   },
   "transform": [
     {
