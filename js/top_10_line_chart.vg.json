@@ -67,7 +67,7 @@
       }
     },
     {
-      "mark": {"type": "text", "fontSize" : 12, "align" : "center", "fontWeight":300},
+      "mark": {"type": "text", "fontSize" : 12, "align" : "center", "fontWeight":"lighter"},
       "encoding": {
         "text": {"value": ["There is a huge gap between", "the second highest and third highest"]} 
       }

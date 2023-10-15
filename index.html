@@ -47,7 +47,6 @@
       </div>
     </div>
      
-  
     <!-- Radial Tree Map -->
     <div class="chart-container">
       <div class="chart-title-box">
@@ -102,12 +101,12 @@
     }).catch(console.error);
 
     var spec2 = "js/top_10_line_chart.vg.json";
-    vegaEmbed('#top_10_line_chart', spec2).then(function(result) {
+    vegaEmbed('#top_10_line_chart', spec2,{actions:false, renderer:'svg'}).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 
     var spec2 = "js/lowest_10_line_chart.vg.json";
-    vegaEmbed('#lowest_10_line_chart', spec2).then(function(result) {
+    vegaEmbed('#lowest_10_line_chart', spec2,{actions:false, renderer:'svg'}).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 
