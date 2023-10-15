@@ -24,13 +24,29 @@
         <div class="chart-title" >How Many People Died?</div>
     </div>
     <p class="body">
-      Over the course of three decades, spanning from 1990 to 2019, the world witnessed millions of fatalities each year. This comprehensive study delves into a critical question: which countries experienced the highest and lowest death rates per population for various causes during this time period? 
+      Which countries experienced the <b><span style="color:purple">highest</span></b> and <b><span style="color:blue">lowest</span></b> death rates <br> per population for various causes during this time period? 
       <br><br>
-      The chloropleth map presented below offers a comprehensive perspective on the <b>total number of deaths per 10,000 population </b>attributed to various causes. Utilizing interactive features, you have the flexibility to navigate through different years, allowing you to observe how the total number of deaths  across different countries has evolved over time. Furthermore, you can refine your exploration by selecting specific causes of interest from the drop-down list. 
+     
+      Navigate through <b>different years</b> to observe the evolving total number<br> of deaths across various countries.
+      Refine your exploration by selecting <br> specific <b>causes of interest</b> from the drop-down list.
     </p>
      <div id="choropleth_map" ></div>
     </div> 
 
+     <!-- Line Charts -->
+     <div class="chart-container">
+      <div class="chart-title-box">
+        <div class="chart-title" >Over The Years...</div>
+      </div>
+      <p class="body">
+        Observe the <b>Top 10 countries </b>with the <br> <b><span style="color:purple">highest</span></b> and <b><span style="color:blue">lowest</span></b> number of deaths <br> from 1990 to 2019.
+      </p>
+      <div class="line-charts-container">
+        <div id="top_10_line_chart" class="line-chart"></div>
+        <div id="lowest_10_line_chart" class="line-chart"></div>
+      </div>
+    </div>
+     
   
     <!-- Radial Tree Map -->
     <div class="chart-container">
@@ -39,19 +55,8 @@
         
       </div>
       <p class="body">
-        After exploring the total number of deaths attributed to various causes, let's categorise these causes into 8 main categories. These categories provide a structured framework for understanding the broader context of global mortality. 
-        <br><br>
-        Here are the categories: 
-        <br><br>
-        
-        1. Infectious Diseases <br>
-        2. Non-communicable Diseases <br>
-        3. Neurological Disorders <br>
-        4. Maternal and Neonatal Disorders <br>
-        5. Nutritioal and Metabolic Disorders <br>
-        6. Substance Abuse <br>
-        7. Accidents and Injuries <br>
-        8. Mental Health
+        Let's categorise these causes into <b>8 main categories </b>. <br> Hover over each cause to find out more.
+       
       </p>
       <div id="radial_tree_map"></div>
     </div>
@@ -65,9 +70,8 @@
     
      <div id="bar_chart" ></div>
      <p class="body">
-      Diving into the bar chart that outlines the top 10 causes of death worldwide, a clear hierarchy emerges. <b>Cardiovascular Disease</b> claims the top position, with a prevalence that nearly <b>doubles</b> that of <b>Neoplasms</b>, the second leading cause. This striking discrepancy underscores the immense significance of addressing Cardiovascular Disease as a critical global health challenge.
-      <br><br>
-      Cardiovascular Disease, which encompasses conditions like heart disease and stroke, remains a pervasive threat to populations around the world. Factors such as sedentary lifestyles, poor dietary habits, and tobacco use contribute to its prevalence.
+      <b><span style="color:#EF9A9A">Cardiovascular Disease</span></b> claims the top position, with a prevalence that <br> nearly <b>doubles</b> that of <b><span style="color:#BA68C8">Neoplasms</span></b>, the second leading cause. <br> This striking discrepancy underscores the immense significance of addressing <br> <b><span style="color:#EF9A9A">Cardiovascular Disease</span></b> as a critical global health challenge.
+      
     </p>
     </div> 
 
@@ -77,17 +81,32 @@
         <div class="chart-title" >The Deadliest Five: A Closer Look By Country</div>
     </div>
     <p class="body">
-      Shifting our focus from global trends to our local context, it's time to uncover the <b>top 5 causes of death</b> in your country. You can easily select your country from the drop-down list below, enabling a more personalized perspective on the prevailing health concerns within your country.
-      <br><br>
-      By understanding these country-specific health patterns, we are able to gain valuable insights for public health initiatives, healthcare strategies, and community well-being. So, take a moment to explore the top 5 causes of death in your country and see how they compare to global statistics.
+      Shifting our focus from global trends to our local context, <br> it's time to uncover the <b>Top 5 Causes of Death</b> in your country.
+     
     </p>
      <div id="donut_chart" ></div>
     </div> 
-  
+
+    <!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2023 Lim Jia Hui. All Rights Reserved.</p>
+  </div>
+</footer>
   
   <script type="text/javascript">
     var spec2 = "js/choropleth_map.vg.json";
     vegaEmbed('#choropleth_map', spec2).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var spec2 = "js/top_10_line_chart.vg.json";
+    vegaEmbed('#top_10_line_chart', spec2).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var spec2 = "js/lowest_10_line_chart.vg.json";
+    vegaEmbed('#lowest_10_line_chart', spec2).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 

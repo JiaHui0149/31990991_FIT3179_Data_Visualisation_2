@@ -5,24 +5,23 @@
       "fontSize": 18
     },
     "width": 1110,
-    "height": 700,
-    "padding": 5,
+    "height": 800,
     "signals": [
       
       {
-        "name": "radius", "value": 230,
+        "name": "Radius", "value": 230,
         "bind": {"input": "range", "min": 20, "max": 600}
       },
       {
-        "name": "extent", "value": 360,
+        "name": "Extent", "value": 360,
         "bind": {"input": "range", "min": 0, "max": 360, "step": 1}
       },
       {
-        "name": "rotate", "value": 0,
+        "name": "Rotate", "value": 79,
         "bind": {"input": "range", "min": 0, "max": 360, "step": 1}
       },
       {
-        "name": "links", "value": "line",
+        "name": "Links", "value": "line",
         "bind": {
           "input": "select",
           "options": ["line", "curve", "diagonal", "orthogonal"]
@@ -35,7 +34,7 @@
     "data": [
       {
         "name": "tree",
-        "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/data/causes_categories.csv",
+        "url": "../data/causes_categories.csv",
         "format": {
             "type": "csv"  
           },
@@ -48,12 +47,12 @@
           {
             "type": "tree",
             "method": "tidy",
-            "size": [1, {"signal": "radius"}],
-            "as": ["alpha", "radius", "depth", "children"]
+            "size": [1, {"signal": "Radius"}],
+            "as": ["alpha", "Radius", "depth", "children"]
           },
           {
             "type": "formula",
-            "expr": "(rotate + extent * datum.alpha + 270) % 360",
+            "expr": "(Rotate + Extent * datum.alpha + 270) % 360",
             "as":   "angle"
           },
           {
@@ -68,26 +67,26 @@
           },
           {
             "type": "formula",
-            "expr": "originX + datum.radius * cos(datum.radians)",
+            "expr": "originX + datum.Radius * cos(datum.radians)",
             "as":   "x"
           },
           {
             "type": "formula",
-            "expr": "originY + datum.radius * sin(datum.radians)",
+            "expr": "originY + datum.Radius * sin(datum.radians)",
             "as":   "y"
           }
         ]
       },
       {
-        "name": "links",
+        "name": "Links",
         "source": "tree",
         "transform": [
-          { "type": "treelinks" },
+          { "type": "treeLinks" },
           {
             "type": "linkpath",
-            "shape": {"signal": "links"}, "orient": "radial",
-            "sourceX": "source.radians", "sourceY": "source.radius",
-            "targetX": "target.radians", "targetY": "target.radius"
+            "shape": {"signal": "Links"}, "orient": "radial",
+            "sourceX": "source.radians", "sourceY": "source.Radius",
+            "targetX": "target.radians", "targetY": "target.Radius"
           }
         ]
       }
@@ -106,7 +105,7 @@
     "marks": [
       {
         "type": "path",
-        "from": {"data": "links"},
+        "from": {"data": "Links"},
         "encode": {
           "update": {
             "x": {"signal": "originX"},
@@ -137,7 +136,8 @@
         "encode": {
           "enter": {
             "text": {"field": "name"},
-            "fontSize": {"value": 12},
+            "fontSize": {"value": 14, "type": "filter"},
+          "font": {"value": "Arial, sans-serif", "type": "filter"},
             "baseline": {"value": "middle"}
           },
           "update": {
@@ -145,7 +145,8 @@
             "y": {"field": "y"},
             "dx": {"signal": "(datum.leftside ? -1 : 1) * 6"},
             "angle": {"signal": "datum.leftside ? datum.angle - 180 : datum.angle"},
-            "align": {"signal": "datum.leftside ? 'right' : 'left'"}
+            "align": {"signal": "datum.leftside ? 'right' : 'left'"},
+            "tooltip": {"signal": "datum.description"}
           }
         }
       }

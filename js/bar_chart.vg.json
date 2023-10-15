@@ -1,50 +1,57 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Top 10 Leading Causes by Total Incidents",
+    "text": "Top 10 Leading Causes by Total Cases",
     "fontSize": 18
   },
   "width": 720,
   "height": 500,
   "data": {
-    "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/data/total_cases_of_diseases.csv"
+    "url": "../data/total_cases_of_diseases.csv"
+  },
+  "config": {
+    "axis": {
+      "grid": false,
+      "labelFontSize": 12,
+      "titleFontSize": 14
+    },
+    "background": "transparent"
   },
   "layer": [
-    {"params": [
-      {
-        "name": "highlight",
-        "select": {"type": "point", "on": "mouseover"}
-      },
-      {"name": "select", "select": "point"}
-    ],
+    {
+      "params": [
+        {
+          "name": "highlight",
+          "select": {"type": "point", "on": "mouseover"}
+        },
+        {"name": "select", "select": "point"}
+      ],
       "mark": "bar",
+      
       "encoding": {
         "y": {"field": "Cause", "type": "nominal", "sort": {"field": "Total cases", "op": "sum", "order": "descending"}},
-        "x": {"field": "Total cases", "type": "quantitative", "scale": {"domain": [0, 500000000]}},
+        "x": {
+          "field": "Total cases",
+          "type": "quantitative",
+          "scale": {"domain": [0, 500000000], "nice": false, "padding": 1},
+          "axis": {
+            "values": [40000000, 80000000, 120000000, 160000000, 200000000, 240000000, 280000000, 320000000, 360000000, 400000000, 440000000, 480000000],
+            "labelExpr": "datum.value / 1000000 + 'M'"
+          }
+        },
         "legend": {
-          "title": "Cause"
-       },
+          "title": "Cause",
+          "labelFontSize": 14
+        },
+        
+        "color": {"field": "Cause", "type": "nominal", "scale": {
+          "domain": ["Cardiovascular Diseases", "Neoplasms", "Chronic Respiratory Diseases", "Lower Respiratory Infections", "Neonatal Disorders", "Neonatal Disorders","Diarrheal Diseases", "Digestive Diseases", "Tuberculosis", "Cirrhosis", "HIV/AIDS"], 
+          "range": ["#EF9A9A","#BA68C8", "#B39DDB", "#90CAF9 ", "#80DEEA", "#80CBC4","#A5D6A7", "#FFF176", "#FFCC80", "#B0BEC5"] 
+        }},
         "fillOpacity": {
           "condition": {"param": "select", "value": 1},
-          "value": 0.3
+          "value": 0.2
         },
-        "strokeWidth": {
-          "condition": [
-            {
-              "param": "select",
-              "empty": false,
-              "value": 2
-            },
-            {
-              "param": "highlight",
-              "empty": false,
-              "value": 1
-            }
-          ],
-          "value": 0
-        },
-        "color": {"field": "Cause", "type": "nominal"},
-        
         "tooltip": [
           {"field": "Cause", "type": "nominal"},
           {"field": "Total cases", "type": "quantitative"}
@@ -54,9 +61,9 @@
     {
       "selection": {
         "causes_highlight": {
-        "type": "multi",
-        "fields": ["Cause"],
-        "bind": "legend"
+          "type": "multi",
+          "fields": ["Cause"],
+          "bind": "legend"
         }
       },
       "mark": {
@@ -71,9 +78,73 @@
         "text": {"field": "Total cases", "type": "quantitative", "format": ".3s"},
         "opacity": {
           "condition": {"selection": "causes_highlight", "value": 1},
-          "value": 0.2}
+          "value": 0.2
+        }
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize" : 12, "align" : "center", "fontWeight":300},
+      "encoding": {
+        "text": {"value": ["The number of deaths caused by", "Cardiovascular Diseases is", "double of Neoplasms"]},
+        "x": {"value": 500},
+        "y": {"value": 200}
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "lightgrey"
+      },
+      "encoding": {
+        "x": {"value": 500},
+        "y": {"value": 190},
+        "x2": {"value": 620},
+        "y2": {"value": 50}
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "lightgrey"
+      },
+      "encoding": {
+        "x": {"value": 500},
+        "y": {"value": 190},
+        "x2": {"value": 320},
+        "y2": {"value": 100}
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize" : 12, "align" : "center", "fontWeight":300},
+      "encoding": {
+        "text": {"value": ["The number of deaths caused by", "Chronic Respiratory Diseases","is half of Neoplasms"]},
+        "x": {"value": 280},
+        "y": {"value": 360}
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "lightgrey"
+      },
+      "encoding": {
+        "x": {"value": 280},
+        "y": {"value": 350},
+        "x2": {"value": 300},
+        "y2": {"value": 100}
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "lightgrey"
+      },
+      "encoding": {
+        "x": {"value": 280},
+        "y": {"value": 350},
+        "x2": {"value": 150},
+        "y2": {"value": 130}
       }
     }
-  ],
-  "config": {"background": "transparent"}
+  ]
 }

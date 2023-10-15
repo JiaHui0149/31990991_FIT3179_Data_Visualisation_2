@@ -1,4 +1,4 @@
-id,name,parent
+id,name,parent,description
 1,Cause,
 2,Infectious Diseases,1
 3,Non-communicable Diseases,1
@@ -7,35 +7,35 @@ id,name,parent
 6,Nutritional and Metabolic Disorders,1
 7,Substance Abuse,1
 8,Accidents and Injuries,1
-9,Acute Hepatitis,2
-10,Diarrheal Diseases,2
-11,HIV/AIDS,2
-12,Malaria,2
-13,Meningitis,2
-14,Tuberculosis,2
-15,Cardiovascular Diseases,3
-16,Chronic Kidney Disease,3
-17,Chronic Respiratory Diseases,3
-18,Cirrhosis and Other Chronic Liver Diseases,3
-19,Diabetes Mellitus,3
-20,Digestive Diseases,3
-21,Lower Respiratory Infections,3
-22,Neoplasms,3
-23,Alzheimer's Disease,4
-24,Parkinson's Disease,4
-25,Maternal Disorders,5
-26,Neonatal Disorders,5
-27,Nutritional Deficiencies,6
-28,Protein-Energy Malnutrition,6
-29,Alcohol Use Disorders,7
-30,Drug Use Disorders,7
-31,Self-harm,40
-32,Drowning,8
-33,Environmental Heat and Cold Exposure,8
-34,Exposure to Forces of Nature,8
-35,"Fire ,Heat and Hot Substances",8
-36,Interpersonal Violence,8
-37,Poisonings,8
-38,Road Injuries,8
-39,Conflict and Terrorism,8
-40,Mental Health,1
+9,Acute Hepatitis,2,Rapid liver inflammation due to infection or toxic exposure
+10,Diarrheal Diseases,2,Conditions causing frequent and watery stools
+11,HIV/AIDS,2,Human Immunodeficiency Virus leading to Acquired Immunodeficiency Syndrome
+12,Malaria,2,A mosquito-borne disease causing fever and flu-like symptoms
+13,Meningitis,2,Inflammation of the protective membranes covering the brain and spinal cord
+14,Tuberculosis,2,Infectious disease affecting the lungs
+15,Cardiovascular Diseases,3,Disorders of the heart and blood vessels
+16,Chronic Kidney Disease,3,Long-term damage to the kidneys leading to reduced function over time
+17,Chronic Respiratory Diseases,3,Long-term diseases affecting the airways and other structures of the lungs
+18,Cirrhosis,3, Scarring of the liver caused by long-term liver damage
+19,Diabetes Mellitus,3,A metabolic disorder characterized by high blood sugar levels
+20,Digestive Diseases,3,Medical conditions that affect the digestive system
+21,Lower Respiratory Infections,3,Infections affecting the lower respiratory tract including bronchitis and pneumonia
+22,Neoplasms,3,Abnormal growth of tissue commonly referred to as tumors or cancers
+23,Alzheimer's Disease,4,Neurodegenerative disorder leading to memory loss and cognitive decline
+24,Parkinson's Disease,4,Neurological disorder affecting movement and coordination
+25,Maternal Disorders,5,Conditions affecting pregnant women or those who have recently given birth
+26,Neonatal Disorders,5,Health conditions affecting newborns during the first 28 days of life
+27,Nutritional Deficiencies,6,Lack of essential nutrients required for proper bodily functions
+28,Protein-Energy Malnutrition,6,A condition caused by inadequate intake of protein and energy
+29,Alcohol Use Disorders,7,Excessive alcohol consumption leading to health and social issues
+30,Drug Use Disorders,7,Substance abuse causing physical and psychological dependency
+31,Self-harm,40,Deliberate injury or harm inflicted on oneself
+32,Drowning,8,Respiratory impairment from being in or under a liquid
+33,Heat & Cold Exposure,8,Health risks arising from extreme temperatures
+34,Forces of Nature,8,Health risks associated with natural disasters or calamities
+35,Fire,8,Burns and other heat-related injuries
+36,Interpersonal Violence,8,"Act involving aggression, abuse, or harm between individuals"
+37,Poisonings,8,Harmful effects that occur when a person is exposed to toxic substances
+38,Road Injuries,8,Harm caused by accidents or incidents involving vehicles on roads
+39,Conflict and Terrorism,8,"Acts of violence, hostility, and aggression typically associated with war or political tensions"
+40,Mental Health,1,Emotional well-being and psychological health

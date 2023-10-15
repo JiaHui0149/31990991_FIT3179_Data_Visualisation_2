@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text":"Countries with the Highest Deaths",
+    "fontSize": 18
+  },
+  "width": 300,
+  "height": 600,
+  "data": {
+    "url": "../data/cause_of_deaths_with_population.csv"
+  },
+  "transform": [
+    {
+      "filter": {
+        "field": "Country/Territory",
+        "oneOf": ["China", "India", "United States", "Russia", "Indonesia", "Nigeria", "Pakistan", "Brazil", "Japan", "Germany"]
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "grid": false,
+      "gridColor": "#e6e6e6"
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "layer": [
+    {
+      "mark": "line",
+      "selection": {
+        "country_highlight": {
+          "type": "multi",
+          "fields": ["Country/Territory"],
+          "bind": "legend"
+        }
+      },
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal", "scale": {"domain": ["1988-01-01", "2019-01-01"]}},
+        "y": {"field": "Total Deaths", "type": "quantitative"},
+        "color": {"field": "Country/Territory", "type": "nominal"},
+        "opacity": {
+          "condition": {"selection": "country_highlight", "value": 0.8},
+          "value": 0.2
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "tooltip": true
+      },
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal"},
+        "y": {"field": "Total Deaths", "type": "quantitative"},
+        "color": {"field": "Country/Territory", "type": "nominal"},
+        "fillOpacity": {
+          "condition": {"selection": "country_highlight", "value": 1},
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "Country/Territory", "type": "nominal"},
+          {"field": "Year", "type": "temporal"},
+          {"field": "Total Deaths", "type": "quantitative"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize" : 12, "align" : "center", "fontWeight":300},
+      "encoding": {
+        "text": {"value": ["There is a huge gap between", "the second highest and third highest"]} 
+      }
+    }
+  ]
+}

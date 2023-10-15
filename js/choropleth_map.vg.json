@@ -6,7 +6,6 @@
   },
     "fontSize": 18
   },
-
   "width": 870,
   "height": 400,
   "projection": { "type": "naturalEarth1" },
@@ -94,7 +93,7 @@
         "Fire, Heat, and Hot Substances",
         "Acute Hepatitis"
       ],
-        "name": "Select Category: "
+        "name": "Select Cause: "
       }
     },
     {
@@ -107,11 +106,42 @@
       "step": 1,
       "name": "Zoom: "
       }
+    },
+    {
+      "name": "center_to",
+      "value": [0,0],
+      "bind": {
+        "input": "select",
+        "options": [
+          [2.6286, 28.0339],
+          [-101.09, 50.71],
+          [-48.082, -10.6753],
+          [115.082, 35.6753],
+          [140.082, -25.6753],
+          [48.5164, 15.5527],
+          [105.3188, 61.5240],
+          [102.2270, 4.2105],
+          [0,0]
+        ],
+        "labels": [
+          "Algeria",
+          "United States of America",
+          "Brazil",
+          "China",
+          "Australia",
+          "Yemen",
+          "Russia",
+          "Malaysia",
+          "Centre"
+        ],
+        "name": "Map Centre: "
+      }
     }
     
   ],
   "projection": {
     "type": "equalEarth",
+    "center": { "expr": "center_to" },
     "scale": {"expr": "zoom_level"}
     },
   "layer": [
