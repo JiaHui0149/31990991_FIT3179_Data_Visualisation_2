@@ -8,9 +8,9 @@
   },
   "width": 870,
   "height": 400,
-  "projection": { "type": "naturalEarth1" },
+  "projection": { "type": "equalEarth" },
   "data": {
-    "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179/main/js/ne_110m.topojson",
+    "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/js/ne_110m.topojson",
     "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
   },
   "params": [
@@ -157,14 +157,14 @@
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179_Week10HW/main/data/cause_of_deaths_with_population.csv"
+        "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/data/cause_of_deaths_with_population.csv"
       },
       "transform": [
         {
           "lookup": "Code",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179/main/js/ne_110m.topojson",
+              "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/js/ne_110m.topojson",
               "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
             },
             "key": "properties.ISO_A3_EH"
@@ -229,7 +229,7 @@
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/JiaHui0149/FIT3179/main/js/ne_110m.topojson",
+        "url": "https://raw.githubusercontent.com/JiaHui0149/31990991_FIT3179_Data_Visualisation_2/main/js/ne_110m.topojson",
         "format": { "type": "topojson", "feature": "ne_110m_graticules_30" }
       },
       "mark": { "type": "geoshape", "fill": null, "stroke": "lightgray" }
